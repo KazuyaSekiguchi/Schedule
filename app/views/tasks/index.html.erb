@@ -1,0 +1,30 @@
+ <h3>スケジュール管理アプリ</h3>
+ 
+ <p><%= link_to "新規追加", :new_task %></p>
+ 
+ <table>
+   <thead>
+     <tr>
+       <th>id</th>
+       <th>タイトル</th>
+       <th>開始日</th>
+       <th>終了日</th>
+       <th>終日</th>
+       <th>更新日時</th>
+     </tr>
+   </thead>
+ 
+   <tbody>
+     <% @tasks.each do |task| %>
+       <tr>
+         <td><%= task.id %></td>
+         <td><%= task.title %></td>
+         <td><%= task.start_date %></td>
+         <td><%= task.end_date %></td>
+         <td><%= task.all_day %></td>
+         <td><%= task.updated_at %></td>
+       </tr>
+     <% end %>
+   </tbody>
+ </table>
+ 
