@@ -2,6 +2,10 @@
  
  <p><%= link_to "新規追加", :new_task %></p>
  
+ <% if flash[:notice] %>
+  <p class="notice"><%= flash[:notice] %></p>
+ <% end %>
+ 
  <table>
    <thead>
      <tr>
@@ -11,6 +15,9 @@
        <th>終了日</th>
        <th>終日</th>
        <th>更新日時</th>
+       <th>参照</th>
+       <th>編集</th>
+       <th>削除</th>
      </tr>
    </thead>
  
@@ -21,10 +28,27 @@
          <td><%= task.title %></td>
          <td><%= task.start_date %></td>
          <td><%= task.end_date %></td>
-         <td><%= task.all_day %></td>
-         <td><%= task.updated_at %></td>
+         <td>
+         <% if task.all_day == true %>
+         ◯
+         <% else task.all_day == false %>
+         <% end %>
+         </td>
+         <td><%= task.updated_at.to_s(:datetime_jp) %></td>
+         <td>
+          <%= link_to "参照", task %>
+         </td>
+         <td>
+          <%= link_to "編集", [:edit, task] %>
+         </td>
+         <td>
+           <%= link_to "削除", task, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+         </td>
        </tr>
      <% end %>
+     <footer>
+     <h1>現在の日時：<%= Date.current.strftime("%Y年%m月%d日") %> スケジュール合計：<%= @schedule_count %></h1>
+     </footer>
    </tbody>
  </table>
  
